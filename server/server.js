@@ -1,15 +1,16 @@
+const url = require('url');
+const path = require('path');
+const request = require('request');
 const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const app = express();
-const config = require('../webpack.config.js');
-const compilier = webpack(config);
 
-app.use(webpackDevMiddleware(compilier, {
-    publicPath: config.output.publicPath
-}));
+app.use('/static', express.static(path.join(__dirname, '../dist')));
+
+app.get('*', function (req, res) {
+    res.sendFile('app.html', {root: './dist'});
+});
 
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!\n');
-})
+});

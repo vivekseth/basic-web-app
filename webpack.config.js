@@ -10,6 +10,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/static',
     filename: '[name]/bundle.js'
   },
   module: {
@@ -27,9 +28,9 @@ const config = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    //new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'My Application'
+      title: 'My Application',
+      filename: 'app.html'
     })
   ]
 };
