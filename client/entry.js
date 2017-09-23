@@ -17,6 +17,10 @@ const routes = () => {
   )
 }
 
+const mountPoint = () => {
+  return document.getElementById('app')
+}
+
 /*
 
 Routes: 
@@ -39,4 +43,4 @@ Page:
   footer: [static-footer]
 */
 
-render(routes(), document.getElementById('app'));
+render(routes(), mountPoint());
