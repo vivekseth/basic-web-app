@@ -1,0 +1,22 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Vivek Seth <Vivekseth.m@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.7",
+    "html-webpack-plugin": "^2.30.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.18.2",
+    "ts-loader": "^2.3.7",
+    "webpack": "^3.6.0"
+  },
+  "scripts": {
+    "build": "webpack --display-error-details",
+    "clean": "rm -r ./dist/*",
+    "serve-static": "cd dist; python -m SimpleHTTPServer 8000 & open http://localhost:8000",
+    "serve-dev": "webpack-dev-server"
+  }
+}
