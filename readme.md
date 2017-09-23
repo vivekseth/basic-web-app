@@ -24,6 +24,8 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Split up app into multiple components
 
+* [DONE] Use an API to feed real data to app (star wars)
+
 * [DONE] client-side hot-reload 
 
 * [DONE] Use babel to transpile JSX and ES5 syntax files

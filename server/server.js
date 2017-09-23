@@ -14,9 +14,21 @@ app.use(express.static(path.join(__dirname, '../dist')));
 
 // API Methods
 
-app.get('/api/hello', function(req, res) {
-    res.json({hello: "world"});
-});
+// app.get('/api/hello', function(req, res) {
+//     res.json({hello: "world"});
+// });
+
+app.get('/api/*', function(req, res) {
+    const apiURL = 'https://swapi.co' + req.url;
+    request(apiURL, function (error, response, body) {
+      if (error) {
+        res.json({error: error});
+      }
+      else {
+        res.json(JSON.parse(body));
+      }
+    });
+})
 
 // Catch-All Route
 
