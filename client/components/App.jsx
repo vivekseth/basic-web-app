@@ -1,20 +1,9 @@
-// import React from 'react'
-
-// const App = () => (
-//   <div>
-//     <h2>Hello World!</h2>
-//   </div>
-// )
-
-// export default App
-
-
-
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 function App(props) {
   return <h1>
-    Hello World!
+    Hello World! <Link to='/page'>Page</Link>
   </h1>
 }
 

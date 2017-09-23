@@ -22,7 +22,7 @@ app.get('/api/hello', function(req, res) {
 
 if (PRODUCTION) {
     app.get('*', function (req, res) {
-        res.sendFile('app.html', {root: './dist'});
+        res.sendFile('index.html', {root: './dist'});
     });
 }
 

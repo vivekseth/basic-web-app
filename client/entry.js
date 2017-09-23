@@ -1,23 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom'
+// import { Router } from 'react-router'
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom'
+
 import App from './components/App.jsx'
+import Page from './components/Page.jsx'
 
-// import str from './test.txt'
-// console.log(str);
+const routes = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={App}/>
+        <Route exact path="/page" component={Page}/>
+      </Switch>
+    </BrowserRouter>
+  )
+}
 
-// import style from './style.css'
-// console.log(style)
+console.log(BrowserRouter);
 
-// var testFunction = (a, b) => {
-//     console.log(a + b);
-// }
+// <Route path="/page" component={Page}/>
 
-// var testJSX = () => {
-//     return <b>hello</b>;
-// }
-
-// testFunction(2, 3);
-
-// console.log(testJSX());
-
-render(<App />, document.getElementById('app'));
+render(routes(), document.getElementById('app'));
