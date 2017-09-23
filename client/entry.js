@@ -39,9 +39,4 @@ Page:
   footer: [static-footer]
 */
 
-
-console.log(BrowserRouter);
-
-// <Route path="/page" component={Page}/>
-
 render(routes(), document.getElementById('app'));
