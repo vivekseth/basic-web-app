@@ -6,10 +6,10 @@ const path = require('path');
 
 const config = {
   entry: {
-    main: './source/entry.js',
+    main: './client/entry.js',
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name]/bundle.js'
   },
   module: {
