@@ -20,5 +20,4 @@ import App from './components/App.jsx'
 
 // console.log(testJSX());
 
-render(<App />, document.body);
-
+render(<App />, document.getElementById('app'));

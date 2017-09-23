@@ -44,7 +44,8 @@ const config = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'My Application',
-      filename: 'index.html'
+      filename: 'index.html',
+      template: 'client/template.html'
     })
   ],
   devServer: {
