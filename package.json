@@ -1,0 +1,10 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Vivek Seth <Vivekseth.m@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "html-webpack-plugin": "^2.30.1"
+  }
+}
