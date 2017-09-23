@@ -3,25 +3,29 @@ const path = require('path');
 const request = require('request');
 const express = require('express');
 
+const PRODUCTION = !!(process.env['PRODUCTION'])
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 
 // Static File Middleware 
 
-app.use('/static', express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // API Methods
 
-app.get('/hello', function(req, res) {
-    res.send('hello\n');
-})
+app.get('/api/hello', function(req, res) {
+    res.json({hello: "world"});
+});
 
 // Catch-All Route
 
-app.get('*', function (req, res) {
-    res.sendFile('app.html', {root: './dist'});
-});
+if (PRODUCTION) {
+    app.get('*', function (req, res) {
+        res.sendFile('app.html', {root: './dist'});
+    });
+}
 
-PORT = 3000;
-app.listen(3000, function() {
+app.listen(PORT, function() {
     console.log('Example app listening on port '+PORT+'!\n');
 });

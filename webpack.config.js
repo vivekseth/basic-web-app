@@ -10,29 +10,49 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/static',
+    publicPath: '/',
     filename: '[name]/bundle.js'
   },
   module: {
-    rules: [{
+    rules: [
+    {
       test: /\.txt$/,
       use: 'raw-loader'
-    }, {
+    }, 
+    {
       test: /\.css$/,
-      use: [{
+      use: [
+      {
         loader: 'style-loader'
-      }, {
+      }, 
+      {
         loader: 'css-loader'
       }]
+    }, 
+    {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'react']
+        }
+      }
     }]
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'My Application',
-      filename: 'app.html'
+      filename: 'index.html'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: './dist',
+    proxy: {
+      '/api' : "http://localhost:3000"
+    }
+  }
 };
 
 module.exports = config;
