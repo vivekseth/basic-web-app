@@ -10,6 +10,8 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
+* Build out star wars data explorer app
+
 * Use server-side rendering
 
 * Unify node_modules for server and client
