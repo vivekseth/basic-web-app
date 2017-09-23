@@ -5,5 +5,10 @@
   "license": "MIT",
   "description": "server",
   "repository": "github",
-  "author": "vivekseth"
+  "author": "vivekseth",
+  "dependencies": {
+    "express": "^4.15.4",
+    "webpack-dev-server": "^2.8.2",
+    "webpack-hot-middleware": "^2.19.1"
+  }
 }
