@@ -12,13 +12,15 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Build out star wars data explorer app
 
+* Use a React UI kit
+
+* Add login support to app (abilty to favorite characters and films)
+
+* How does react-router worth with authentication? If a user is logged in, a path may look different. 
+
 * Use server-side rendering
 
 * Unify node_modules for server and client
-
-* Use a React UI kit
-
-* How does react-router worth with authentication? If a user is logged in, a path may look different. 
 
 * Server-size hot-reload 
 
