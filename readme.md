@@ -12,15 +12,21 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Use server-side rendering
 
-* Split up app into multiple components
-
-* Optimize request to render time
-
-* Use babel to transpile JSX and ES5 syntax files
-
-* Server-size and client-side hot-reload 
+* Unify node_modules for server and client
 
 * Use a React UI kit
 
-* Try out Vue.js
+* How does react-router worth with authentication? If a user is logged in, a path may look different. 
+
+* Server-size hot-reload 
+
+* Optimize request to render time
+
+* Split up app into multiple components
+
+* [DONE] client-side hot-reload 
+
+* [DONE] Use babel to transpile JSX and ES5 syntax files
+
+* [DONE] Use react-router to render different paths.
 
