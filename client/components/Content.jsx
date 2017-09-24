@@ -10,8 +10,8 @@ class Content extends React.Component {
     return (
       <Switch>
         <Route exact path="/" component={HomePage}/>
-        <Route path="/films" component={FilmsList}/>
-        <Route path="/characters" component={CharactersList}/>
+        <Route exact path="/films" component={FilmsList}/>
+        <Route exact path="/characters" component={CharactersList}/>
       </Switch>
     )
   }
