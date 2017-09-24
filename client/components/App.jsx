@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import Content from './Content.jsx'
+import Header from './Header.jsx'
 
-function App(props) {
-  return <h1>
-    Hello World! <Link to='/page'>Page</Link>
-  </h1>
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Content />
+      </div>
+    )
+  }
 }
 
 export default App;
