@@ -34,7 +34,7 @@ app.get('/api/*', function(req, res) {
   const apiURL = 'https://swapi.co' + req.url;
 
   if (MEM_CACHE[apiURL]) {
-    console.log('✅ Cache Hit: ' + apiURL)
+    // console.log('✅ Cache Hit: ' + apiURL)
     res.json(MEM_CACHE[apiURL]);
   }
   else {
