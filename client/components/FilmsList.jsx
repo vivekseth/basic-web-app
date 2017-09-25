@@ -4,9 +4,11 @@ import superagent from 'superagent'
 
 const _FilmItem = (props) => {
   const film = props.film;
+  const components = film.url.split('/');
+  const filmID = components[components.length - 2];
   return (
     <li>
-      <Link to={"/films/" + film.episode_id.toString()}>
+      <Link to={"/films/" + filmID}>
         {film.title}
       </Link>
     </li>

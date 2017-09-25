@@ -6,6 +6,9 @@ import AsyncCharacterItem from './AsyncCharacterItem.jsx'
 class FilmDetail extends React.Component {
   constructor(props) {
     super(props)
+
+    console.log(props)
+
     this.state = {
       isLoading: false,
       film: null
