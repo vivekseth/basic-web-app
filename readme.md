@@ -10,13 +10,11 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Build out star wars data explorer app
+* Refactor. Abstract out "Ajax view" concept. Avoid repeating logic for maintaining `isLoading` and setting data once requests comes in. 
 
 * Use a React UI kit (bootstrap-react)
 
 * Use client-side, purgeable cache to avoid duplicating ajax requests. 
-
-* Abstract out "Ajax view" concept. Avoid repeating logic for maintaining `isLoading` and setting data once requests comes in. 
 
 * Add login support to app (abilty to favorite characters and films)
 
@@ -29,6 +27,8 @@ App is responsible for rendering correct page for a given path and making API re
 * Optimize request to render time
 
 * Split up app into multiple components
+
+* [DONE] Build out star wars data explorer app
 
 * [DONE] Unify node_modules for server and client
 
