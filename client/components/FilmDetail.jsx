@@ -51,9 +51,7 @@ class FilmDetail extends React.Component {
       return (
         <div>
           <h1>
-            <Link to={"/films/" + film.episode_id.toString()}>
-              {film.title}
-            </Link>
+            {film.title}
           </h1>
           <h2>Director: {film.director}</h2>
           <h2>Producer: {film.producer}</h2>
@@ -76,14 +74,5 @@ class FilmDetail extends React.Component {
     }
   }
 }
-
-/*
-<li>Luke Skywalker</li>
-            <li>Darth Vader</li>
-            <li>Han Solo</li>
-            <li>Chewey</li>
-            <li>R2-D2</li>
-            <li>CP30</li>
-            */
 
 export default FilmDetail;
