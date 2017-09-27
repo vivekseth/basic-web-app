@@ -4,7 +4,7 @@ import superagent from 'superagent'
 
 // TODO(vivek): Create higher-order component to present data that is loaded via API. 
 
-class AsyncCharacterItem extends React.Component {
+class AsyncFilmItem extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -13,8 +13,8 @@ class AsyncCharacterItem extends React.Component {
     }
   }
 
-  _characterID() {
-    return this.props.characterID;
+  _filmID() {
+    return this.props.filmID;
   }
 
   componentDidMount() {
@@ -23,7 +23,7 @@ class AsyncCharacterItem extends React.Component {
     })
 
     superagent
-      .get('http://localhost:8080/api/people/' + this._characterID())
+      .get('http://localhost:8080/api/films/' + this._filmID())
       .end((err, res) => {
         this.setState({
           isLoading: false,
@@ -41,8 +41,8 @@ class AsyncCharacterItem extends React.Component {
     }
     else {
       return (
-        <Link to={'/characters/' + this._characterID()}>
-          {this.state.data.name}
+        <Link to={'/films/' + this._filmID()}>
+          {this.state.data.title}
         </Link>
       )
     }
@@ -50,4 +50,4 @@ class AsyncCharacterItem extends React.Component {
 }
 
 
-export default AsyncCharacterItem;
+export default AsyncFilmItem;

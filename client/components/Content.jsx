@@ -5,6 +5,7 @@ import HomePage from './HomePage.jsx'
 import FilmsList from './FilmsList.jsx'
 import FilmDetail from './FilmDetail.jsx'
 import CharactersList from './CharactersList.jsx'
+import CharacterDetail from './CharacterDetail.jsx'
 
 class Content extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class Content extends React.Component {
         <Route exact path="/films" component={FilmsList}/>
         <Route path="/films/:filmID" component={FilmDetail}/>
         <Route exact path="/characters" component={CharactersList}/>
+        <Route path="/characters/:charID" component={CharacterDetail}/>
       </Switch>
     )
   }

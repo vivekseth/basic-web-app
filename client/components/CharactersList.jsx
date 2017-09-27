@@ -13,7 +13,7 @@ const CharacterItem = (props) => {
   const charID = _getCharacterID(props.data);
   return (
     <li>
-      <Link to={"/people/" + charID}>
+      <Link to={"/characters/" + charID}>
         {name}
       </Link>
     </li>
@@ -27,13 +27,12 @@ const PageAdvancementButton = (props) => {
     return <span>{str}</span>;
   }
   else {
-    const pageString = props.url.split('?')[1];
-    console.log(pageString);
+    const pageString = props.url.split('page=')[1];
     return (
       <Link 
         to={{
           pathname: '/characters',
-          search: '?' + pageString,
+          search: '?page=' + pageString,
         }}
         onClick={() => {props.onClickHandler(props.url)}}
       >
@@ -75,8 +74,8 @@ class CharactersList extends React.Component {
   }
 
   _pageButtonClicked(url) {
-    const pageString = url.split('?')[1];
-    const apiURL = 'http://localhost:8080/api/people/?' + pageString;
+    const pageString = url.split('page=')[1];
+    const apiURL = 'http://localhost:8080/api/people/?page=' + pageString;
     this._loadData(apiURL);
   }
 

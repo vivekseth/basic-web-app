@@ -6,9 +6,6 @@ import AsyncCharacterItem from './AsyncCharacterItem.jsx'
 class FilmDetail extends React.Component {
   constructor(props) {
     super(props)
-
-    console.log(props)
-
     this.state = {
       isLoading: false,
       film: null
@@ -24,13 +21,9 @@ class FilmDetail extends React.Component {
       isLoading: true,
     })
 
-    console.log(this._filmID());
-
     superagent
       .get('http://localhost:8080/api/films/' + this._filmID())
       .end((err, res) => {
-        console.log(err);
-        console.log(res);
         this.setState({
           isLoading: false,
           film: res.body

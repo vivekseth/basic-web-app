@@ -65,7 +65,7 @@ class FilmsList extends React.Component {
 
     return (
       <div>
-        <h1>FilmsList</h1>
+        <h1>Films</h1>
         {content}
       </div>
     )
