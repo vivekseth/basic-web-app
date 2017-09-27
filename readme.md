@@ -14,6 +14,8 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Use a React UI kit (bootstrap-react)
 
+* Use client-side, purgeable cache to avoid duplicating ajax requests. 
+
 * Add login support to app (abilty to favorite characters and films)
 
 * How does react-router work with authentication? If a user is logged in, a path may look different. 
