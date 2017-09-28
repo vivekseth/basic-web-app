@@ -6,9 +6,9 @@ import App from './components/App.jsx'
 
 const routes = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 

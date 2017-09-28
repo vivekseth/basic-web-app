@@ -4,9 +4,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
+const PRODUCTION = !!(process.env['PRODUCTION'])
+const entryFile = PRODUCTION ? './client/entry-prod.js' : './client/entry.js';
+
 const config = {
   entry: {
-    main: './client/entry.js',
+    main: entryFile,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
