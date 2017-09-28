@@ -14,6 +14,12 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Use a React UI kit (bootstrap-react)
 
+* Add footer
+
+* Add search, sort, filtering
+
+* How can I use BrowserRouter for prod and HashRouter for dev? 
+
 * Use client-side, purgeable cache to avoid duplicating ajax requests. 
 
 * Add login support to app (abilty to favorite characters and films)
