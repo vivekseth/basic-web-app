@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
+import elemental from 'elemental'
 
 const _getCharacterID = (char) => {
     const components = char.url.split('/');
@@ -44,8 +45,8 @@ const PageAdvancementButton = (props) => {
 
 class CharactersList extends React.Component {
   
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       isLoading: false,
       data: null
@@ -75,25 +76,39 @@ class CharactersList extends React.Component {
 
   _pageButtonClicked(url) {
     const pageString = url.split('page=')[1];
-    const apiURL = 'http://localhost:8080/api/people/?page=' + pageString;
-    this._loadData(apiURL);
+    this._visitPage(pageString);
+  }
+
+  _loadPageData(page) {
+    const apiURL = 'http://localhost:8080/api/people/?page=' + page;
+    this._loadData(apiURL); 
+  }
+
+  _visitPage(page) {
+    this._loadPageData(page);
+    this.props.history.push('/characters?page='+page, {page: page});
   }
 
   _listStart() {
+    let pageNum = this._currentPageNum();
+    const listStart = (pageNum - 1) * 10 + 1;
+    return listStart;
+  }
+
+  _currentPageNum() {
     const components = window.location.href.split('?page=');
     let pageNum = 1;
     if (components.length == 2) {
       pageNum = parseInt(components[1]);
     }
-    const listStart = (pageNum - 1) * 10 + 1;
-    return listStart;
+    return pageNum;
   }
 
   render() {
     
     let content = null;
     if (this.state.isLoading) {
-      content =(<p>loading...</p>);
+      content =(<elemental.Spinner size="md" />);
     }
     else if (!this.state.data) {
       content = (<p>There are no characters</p>); 
@@ -101,46 +116,36 @@ class CharactersList extends React.Component {
     else {
       const listStart = this._listStart();
       content = (
-        <ol start={listStart.toString()}>
-          {
-            this.state.data.results.map((char, i) => {
-              return (
-                <CharacterItem 
-                  key={_getCharacterID(char)} 
-                  data={char}
-                />
-              )
-            })
-          }
-        </ol>
+        <div>
+          <ol start={listStart.toString()}>
+            {
+              this.state.data.results.map((char, i) => {
+                return (
+                  <CharacterItem 
+                    key={_getCharacterID(char)} 
+                    data={char}
+                  />
+                )
+              })
+            }
+          </ol>
+          <br />
+          <elemental.Pagination
+            currentPage={this._currentPageNum()}
+            onPageSelect={this._visitPage.bind(this)}
+            pageSize={10} // TODO(vivek): remove need to hard-code this.
+            plural={'characters'}
+            singular={'character'}
+            total={this.state.data.count}
+          />
+        </div>
       )
     }
-
-    const nextURL = (this.state.data ? this.state.data.next : null);
-    const prevURL = (this.state.data ? this.state.data.previous : null);
-
-    let nextButton = (
-      <PageAdvancementButton 
-        isNext={true} 
-        url={nextURL} 
-        onClickHandler={this._pageButtonClicked.bind(this)}
-      />
-    );
-
-    let prevButton = (
-      <PageAdvancementButton 
-        isNext={false} 
-        url={prevURL} 
-        onClickHandler={this._pageButtonClicked.bind(this)}
-      />
-    );
 
     return (
       <div>
         <h1>Characters</h1>
         {content}
-        <br />
-        {prevButton}...{nextButton}
       </div>
     )
   }
