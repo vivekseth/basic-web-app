@@ -33,6 +33,19 @@ const config = {
       }]
     }, 
     {
+      test: /\.less$/,
+      use: [
+      {
+        loader: 'style-loader'
+      }, 
+      {
+        loader: 'css-loader'
+      }, 
+      {
+        loader: 'less-loader'
+      }]
+    }, 
+    {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       use: {
