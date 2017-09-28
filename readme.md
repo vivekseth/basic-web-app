@@ -10,21 +10,19 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Refactor. Abstract out "Ajax view" concept. Avoid repeating logic for maintaining `isLoading` and setting data once requests comes in. 
-
 * Use a React UI kit (bootstrap-react)
 
 * Add footer
 
 * Add search, sort, filtering
 
-* How can I use BrowserRouter for prod and HashRouter for dev? 
-
 * Use client-side, purgeable cache to avoid duplicating ajax requests. 
 
 * Add login support to app (abilty to favorite characters and films)
 
 * How does react-router work with authentication? If a user is logged in, a path may look different. 
+
+* Refactor async views to re-use common code.
 
 * Use server-side rendering
 
@@ -33,6 +31,10 @@ App is responsible for rendering correct page for a given path and making API re
 * Optimize request to render time
 
 * Split up app into multiple components
+
+## Done
+
+* [DONE] How can I use BrowserRouter for prod and HashRouter for dev? 
 
 * [DONE] Build out star wars data explorer app
 
