@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncCharacterItem from './AsyncCharacterItem.jsx'
+import { Header, Table } from 'semantic-ui-react'
 
 class FilmDetail extends React.Component {
   constructor(props) {
@@ -43,14 +44,44 @@ class FilmDetail extends React.Component {
     else {
       return (
         <div>
-          <h1>
+
+          <Header as='h1'>
             {film.title}
-          </h1>
-          <h2>Director: {film.director}</h2>
-          <h2>Producer: {film.producer}</h2>
-          <p>Release Date: {film.release_date}</p>
-          <p>{film.opening_crawl}</p>
-          <h3>Characters</h3>
+          </Header>
+
+          <Header as='h2'>
+            Information
+          </Header>
+
+          <Table basic='very'>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>Director</Table.Cell>
+                <Table.Cell>{film.director}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Producer</Table.Cell>
+                <Table.Cell>{film.producer}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Release Date</Table.Cell>
+                <Table.Cell>{film.release_date}</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+
+          <Header as='h2'>
+            Opening Crawl
+          </Header>
+
+          <p>
+            {film.opening_crawl}
+          </p>
+
+          <Header as='h2'>
+            Characters
+          </Header>
+
           <ul> {
             film.characters.map((url, i) => {
               const components = url.split('/');
