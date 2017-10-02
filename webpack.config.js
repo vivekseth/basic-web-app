@@ -54,6 +54,12 @@ const config = {
           presets: ['env', 'react']
         }
       }
+    },
+    {
+      test: /(eot|svg|ttf|woff|woff2|png)/,
+      use: {
+        loader: 'file-loader',
+      }
     }]
   },
   plugins: [
