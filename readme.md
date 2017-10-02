@@ -10,9 +10,7 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Use a React UI kit (bootstrap-react)
-
-* Add footer
+* Use a React UI kit (semantic-ui)
 
 * Add search, sort, filtering
 
@@ -33,6 +31,8 @@ App is responsible for rendering correct page for a given path and making API re
 * Split up app into multiple components
 
 ## Done
+
+* [DONE] Add footer
 
 * [DONE] How can I use BrowserRouter for prod and HashRouter for dev? 
 
