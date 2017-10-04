@@ -14,7 +14,7 @@ class Header extends React.Component {
             <Menu.Item>
               <Input icon='search' placeholder='Search...' />
             </Menu.Item>
-            <Menu.Item name='logout' />
+            <Menu.Item name='Login' as={Link} to="#" />
           </Menu.Menu>
         </Container>
       </Menu>
