@@ -10,27 +10,29 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Use a React UI kit (semantic-ui)
-
-* Add search, sort, filtering
-
-* Use client-side, purgeable cache to avoid duplicating ajax requests. 
-
 * Add login support to app (abilty to favorite characters and films)
 
 * How does react-router work with authentication? If a user is logged in, a path may look different. 
 
+* Add search, sort, filtering
+
+* Use client-side, purgeable cache to avoid duplicating ajax requests (check out pattern used here: https://github.com/clintonwoo/hackernews-react-graphql). 
+
 * Refactor async views to re-use common code.
+
+* Build a pagination react component
 
 * Use server-side rendering
 
-* Server-size hot-reload 
+* Server-side hot-reload 
 
 * Optimize request to render time
 
 * Split up app into multiple components
 
 ## Done
+
+* [DONE] Use a React UI kit (semantic-ui)
 
 * [DONE] Add footer
 
