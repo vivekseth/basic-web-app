@@ -2,6 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncFilmItem from './AsyncFilmItem.jsx'
+import { Header, Table } from 'semantic-ui-react'
+
+const CharacterAttributeTable = function(props) {
+  const _Row = function(props) {
+    return (
+      <Table.Row>
+        <Table.Cell>{props.keyName}</Table.Cell>
+        <Table.Cell>{props.value}</Table.Cell>
+      </Table.Row>
+    );
+  }
+
+  console.log('test', props);
+
+  return (
+    <Table basic='very'>
+      <Table.Body>
+      {
+        props.attributes.map((attr, i) => {
+          return <_Row keyName={attr.key} value={attr.value} />
+        })
+      }
+      </Table.Body>
+    </Table>
+  );
+}
+
+
 
 class CharacterDetail extends React.Component {
   
@@ -15,6 +43,16 @@ class CharacterDetail extends React.Component {
 
   _charID() {
     return this.props.match.params.charID
+  }
+
+  _attributes() {
+    var keys = ["name", "height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender"];
+    return keys.map((key, i) => {
+      return {
+        key: key,
+        value: this.state.data[key]
+      }
+    });
   }
 
   _loadData(url) {
@@ -49,9 +87,12 @@ class CharacterDetail extends React.Component {
     else {
       content = (
         <div>
-          <h1>{this.state.data.name}</h1>
-          <p>{JSON.stringify(this.state.data)}</p>
-          <h2>Films</h2>
+          <Header as='h1'>{this.state.data.name}</Header>
+
+          <Header as='h2'>Attributes</Header>
+          <CharacterAttributeTable attributes={this._attributes()} />
+
+          <Header as='h2'>Films</Header>
           <ul>
             {
               this.state.data.films.map((filmURL, i) => {
