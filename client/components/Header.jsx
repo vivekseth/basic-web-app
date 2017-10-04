@@ -5,7 +5,7 @@ import { Menu, Container, Input } from 'semantic-ui-react'
 class Header extends React.Component {
   render() {
     return (
-      <Menu fixed='top' size='large'>
+      <Menu fixed='top' size='large' borderless>
         <Container>
           <Menu.Item name='Star Wars Explorer' as={NavLink} exact to="/" />
           <Menu.Item name='Films' as={NavLink} exact to="/films"/>
