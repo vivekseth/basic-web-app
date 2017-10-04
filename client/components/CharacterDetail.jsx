@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncFilmItem from './AsyncFilmItem.jsx'
-import { Header, Table } from 'semantic-ui-react'
+import { Header, Table, List } from 'semantic-ui-react'
 
 const CharacterAttributeTable = function(props) {
   const _Row = function(props) {
@@ -14,14 +14,12 @@ const CharacterAttributeTable = function(props) {
     );
   }
 
-  console.log('test', props);
-
   return (
     <Table basic='very'>
       <Table.Body>
       {
         props.attributes.map((attr, i) => {
-          return <_Row keyName={attr.key} value={attr.value} />
+          return <_Row key={attr.key} keyName={attr.key} value={attr.value} />
         })
       }
       </Table.Body>
@@ -93,15 +91,19 @@ class CharacterDetail extends React.Component {
           <CharacterAttributeTable attributes={this._attributes()} />
 
           <Header as='h2'>Films</Header>
-          <ul>
+          <List ordered>
             {
               this.state.data.films.map((filmURL, i) => {
                 const components = filmURL.split('/');
                 const filmID = components[components.length - 2];
-                return <li key={filmID}><AsyncFilmItem filmID={filmID}/></li>
+                return (
+                  <List.Item key={filmID}>
+                    <AsyncFilmItem filmID={filmID}/>
+                  </List.Item>
+                );
               })
             }
-          </ul>
+          </List>
         </div>
       );
     }
