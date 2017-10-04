@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncCharacterItem from './AsyncCharacterItem.jsx'
-import { Header, Table } from 'semantic-ui-react'
+import { Header, Table, List } from 'semantic-ui-react'
 
 class FilmDetail extends React.Component {
   constructor(props) {
@@ -82,17 +82,19 @@ class FilmDetail extends React.Component {
             Characters
           </Header>
 
-          <ul> {
+          <List bulleted>
+          {
             film.characters.map((url, i) => {
               const components = url.split('/');
               const characterID = components[components.length - 2];
               return (
-                <li key={characterID}>
+                <List.Item key={characterID}>
                   <AsyncCharacterItem characterID={characterID} />
-                </li>
+                </List.Item>
               );
             })
-          } </ul>
+          } 
+          </List>
         </div>
       )
     }
