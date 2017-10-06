@@ -10,11 +10,9 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Create login/registration page
-
 * Create Database (Users: (username, password), Favorites: (username, type, contentID))
 
-* Add login support to app (abilty to favorite characters and films)
+* abilty to favorite characters and films
 
 * How does react-router work with authentication? If a user is logged in, a path may look different. 
 
@@ -35,6 +33,12 @@ App is responsible for rendering correct page for a given path and making API re
 * Split up app into multiple components
 
 ## Done
+
+* [DONE] (I have a naive approach) How does an SPA handle showing user data? Must the SPA make an API request to retrieve user data each time its needed? Should the server somehow pass this to the client on page load? 
+
+* [DONE] Add login support to app 
+
+* [DONE] Create login/registration page
 
 * [DONE] Use a React UI kit (semantic-ui)
 
