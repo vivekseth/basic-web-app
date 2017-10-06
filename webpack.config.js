@@ -73,7 +73,9 @@ const config = {
   devServer: {
     contentBase: './dist',
     proxy: {
-      '/api' : "http://localhost:3000"
+      '/api' : "http://localhost:3000",
+      '/login' : "http://localhost:3000",
+      '/register' : "http://localhost:3000"
     }
   }
 };

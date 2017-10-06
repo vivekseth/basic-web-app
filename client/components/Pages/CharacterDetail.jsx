@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
-import AsyncFilmItem from './AsyncFilmItem.jsx'
+import AsyncFilmItem from '../Util/AsyncFilmItem.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
 const CharacterAttributeTable = function(props) {

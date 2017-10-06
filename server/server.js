@@ -54,6 +54,18 @@ app.get('/api/*', function(req, res) {
   }
 })
 
+// User Management
+
+app.post('/login', function(req, res) {
+  console.log('LOGIN');
+  res.send('<script>window.location = "/"; </script>');
+});
+
+app.post('/register', function(req, res) {
+  console.log('REGISTER');
+  res.send('<script>window.location = "/"; </script>');
+});
+
 // Catch-All Route
 
 if (PRODUCTION) {
