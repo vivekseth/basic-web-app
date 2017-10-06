@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
-import AsyncCharacterItem from './AsyncCharacterItem.jsx'
+import AsyncCharacterItem from '../Util/AsyncCharacterItem.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
 class FilmDetail extends React.Component {

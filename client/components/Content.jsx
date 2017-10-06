@@ -2,11 +2,11 @@ import React from 'react';
 import { Link, Switch, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
 
-import HomePage from './HomePage.jsx'
-import FilmsList from './FilmsList.jsx'
-import FilmDetail from './FilmDetail.jsx'
-import CharactersList from './CharactersList.jsx'
-import CharacterDetail from './CharacterDetail.jsx'
+import HomePage from './Pages/HomePage.jsx'
+import FilmsList from './Pages/FilmsList.jsx'
+import FilmDetail from './Pages/FilmDetail.jsx'
+import CharactersList from './Pages/CharactersList.jsx'
+import CharacterDetail from './Pages/CharacterDetail.jsx'
 
 class Content extends React.Component {
   render() {
