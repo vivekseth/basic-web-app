@@ -10,17 +10,17 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
+* Refactor async views to re-use common code.
+
 * Create Database (Users: (username, password), Favorites: (username, type, contentID))
 
-* abilty to favorite characters and films
+* Import SWAPI data into local database
 
-* How does react-router work with authentication? If a user is logged in, a path may look different. 
+* abilty to favorite characters and films
 
 * Add search, sort, filtering
 
 * Use client-side, purgeable cache to avoid duplicating ajax requests (check out pattern used here: https://github.com/clintonwoo/hackernews-react-graphql). 
-
-* Refactor async views to re-use common code.
 
 * Build a pagination react component
 
@@ -33,6 +33,8 @@ App is responsible for rendering correct page for a given path and making API re
 * Split up app into multiple components
 
 ## Done
+
+* [DONE] (it doesnt) How does react-router work with authentication? If a user is logged in, a path may look different. 
 
 * [DONE] (I have a naive approach) How does an SPA handle showing user data? Must the SPA make an API request to retrieve user data each time its needed? Should the server somehow pass this to the client on page load? 
 
