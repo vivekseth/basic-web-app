@@ -10,7 +10,7 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Refactor async views to re-use common code.
+* Refactor async views to re-use common code. (3/7 complete)
 
 * Create Database (Users: (username, password), Favorites: (username, type, contentID))
 
