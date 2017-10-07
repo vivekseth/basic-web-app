@@ -20,6 +20,8 @@ App is responsible for rendering correct page for a given path and making API re
 
 * Add search, sort, filtering
 
+* Show error messages from server without page reload (invalid username, password, user already exists, etc)
+
 * Use client-side, purgeable cache to avoid duplicating ajax requests (check out pattern used here: https://github.com/clintonwoo/hackernews-react-graphql). 
 
 * Build a pagination react component
@@ -31,6 +33,8 @@ App is responsible for rendering correct page for a given path and making API re
 * Optimize request to render time
 
 * Split up app into multiple components
+
+* rebuild this app using Django
 
 ## Done
 
