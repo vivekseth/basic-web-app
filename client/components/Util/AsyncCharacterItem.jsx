@@ -1,53 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
+import AsyncData from './AsyncData.jsx'
 
-// TODO(vivek): Create higher-order component to present data that is loaded via API. 
+const AsyncCharacterItem = (props) => {
+  const characterID = props.characterID;
 
-class AsyncCharacterItem extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      isLoading: false,
-      data: null
+  console.log('http://localhost:8080/api/people/' + characterID);
+
+  return <AsyncData 
+    apiURL={
+      'http://localhost:8080/api/people/' + characterID
     }
-  }
-
-  _characterID() {
-    return this.props.characterID;
-  }
-
-  componentDidMount() {
-    this.setState({
-      isLoading: true,
-    })
-
-    superagent
-      .get('http://localhost:8080/api/people/' + this._characterID())
-      .end((err, res) => {
-        this.setState({
-          isLoading: false,
-          data: res.body
-        })
-      });
-  }
-
-  render() {
-    if (this.state.isLoading) {
-      return (<p>loading...</p>);
-    }
-    else if (!this.state.data) {
-      return (<p>There is no data with that ID</p>); 
-    }
-    else {
+    IsLoading={(props) => {
+      return (<p>Loading...</p>)
+    }}
+    NoData={(props) => {
+      return (<p>There is no data with that ID</p>)
+    }}
+    HasData={(props) => {
       return (
-        <Link to={'/characters/' + this._characterID()}>
-          {this.state.data.name}
+        <Link to={'/characters/' + characterID}>
+          {props.data.name}
         </Link>
-      )
-    }
-  }
+      );
+    }}
+  />
 }
-
 
 export default AsyncCharacterItem;

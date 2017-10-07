@@ -20,7 +20,7 @@ class AsyncData extends React.Component {
       .end((err, res) => {
         this.setState({
           isLoading: false,
-          data: res.body.data
+          data: res.body
         })
       });
   }
