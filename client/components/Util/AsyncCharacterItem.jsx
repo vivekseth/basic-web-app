@@ -6,8 +6,6 @@ import AsyncData from './AsyncData.jsx'
 const AsyncCharacterItem = (props) => {
   const characterID = props.characterID;
 
-  console.log('http://localhost:8080/api/people/' + characterID);
-
   return <AsyncData 
     apiURL={
       'http://localhost:8080/api/people/' + characterID
