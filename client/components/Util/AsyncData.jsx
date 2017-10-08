@@ -11,18 +11,36 @@ class AsyncData extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    })
+    this._loadData(this.props.apiURL);
+  }
 
-    superagent
-      .get(this.props.apiURL)
-      .end((err, res) => {
-        this.setState({
-          isLoading: false,
-          data: res.body
-        })
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.apiURL !== this.props.apiURL) {
+      this._loadData(nextProps.apiURL);
+    }
+  }
+
+  _loadData(apiURL) {
+    if (!apiURL) {
+      this.setState({
+        isLoading: false,
+        data: null
       });
+    }
+    else {
+      this.setState({
+        isLoading: true,
+      })
+
+      superagent
+        .get(apiURL)
+        .end((err, res) => {
+          this.setState({
+            isLoading: false,
+            data: res.body
+          })
+        });
+    }
   }
 
   render() {
