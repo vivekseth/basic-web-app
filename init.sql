@@ -1,0 +1,12 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE users (
+   username TEXT PRIMARY KEY NOT NULL,
+   hash TEXT NOT NULL
+);
+CREATE TABLE favorites (
+   username TEXT NOT NULL,
+   type TEXT NOT NULL,
+   id TEXT NOT NULL
+);
+COMMIT;
