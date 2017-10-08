@@ -10,6 +10,8 @@ const bodyparser = require('body-parser');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const ensureLoggedIn = require('connect-ensure-login');
+const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcrypt');
 
 const PRODUCTION = !!(process.env['PRODUCTION'])
 const PORT = process.env.PORT || 3000;
@@ -27,40 +29,55 @@ const app = express();
 
 // User Authentication
 
-var userDB = {'hello': {
-  'password': 'world'
-}}
+var db = new sqlite3.Database('./database.db', sqlite3.OPEN_READWRITE);
 
-const _validateCredentials = (username, password) => {
-  if (userDB[username]) {
-    const userData = userDB[username];
-    return userData['password'] === password;
-  }
-  else {
-    return false;
-  }
+const _validateCredentials = (username, password, callback) => {
+  db.get('select * from users where username = ?;', username, function(err, row){
+    if (row) {
+      const hash = row.hash;
+      bcrypt.compare(password, hash, function(err, res) {
+        callback(res);
+      });
+    }
+    else {
+      callback(false);
+    }
+  });
 }
 
-const _registerUser = (username, password) => {
-  if (!userDB[username]) {
-    userDB[username] = {
-      'password': password,
+const _registerUser = (username, password, callback) => {
+  bcrypt.hash(password, 10, function(err, hash) {
+    if (err) {
+      callback(false);
     }
-    return true;
-  }
-  else {
-    return false;
-  }
+    else {
+      db.run("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash, function(err) {
+        if (err) {
+          callback(false);
+        }
+        else {
+          if (this.changes <= 0) {
+            callback(false);
+          }
+          else {
+            callback(true);
+          }
+        }
+      });
+    }
+  });
 }
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    if (_validateCredentials(username, password)) {
-      done(null, {username: username});
-    }
-    else {
-      done(null, false);
-    }
+    _validateCredentials(username, password, function(success){
+      if (success) {
+        done(null, {username: username});
+      }
+      else {
+        done(null, false);
+      }
+    })
   }
 ));
 
@@ -153,28 +170,18 @@ app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: loginPath }));
 
-// app.post('/login', function(req, res) {
-//   console.log('LOGIN');
-//   console.log(req.body);
-
-//   if (_validateCredentials(req.body.username, req.body.password)) {
-//     res.send('valid credentials!');
-//   }
-//   else {
-//     res.send('INVALID credentials!'); 
-//   }
-// });
-
 app.post('/register', function(req, res) {
   console.log('REGISTER');
   console.log(req.body);
 
-  if (_registerUser(req.body.username, req.body.password)) {
-    res.send('registration successful!');
-  }
-  else {
-    res.send('error, user already exists');
-  }
+  _registerUser(req.body.username, req.body.password, function(success){
+    if (success) {
+      res.send('registration successful!');
+    }
+    else {
+      res.send('error, user already exists');
+    }
+  })
 });
 
 // Catch-All Route
