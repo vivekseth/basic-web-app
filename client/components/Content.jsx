@@ -6,7 +6,7 @@ import HomePage from './Pages/HomePage.jsx'
 import FilmsList from './Pages/FilmsList.jsx'
 import FilmDetail from './Pages/FilmDetail.jsx'
 import CharactersList from './Pages/CharactersList.jsx'
-import CharacterDetail from './Pages/CharacterDetail.jsx'
+import CharacterDetailPage from './Pages/CharacterDetail.jsx'
 import CredentialsPage from './Pages/CredentialsPage.jsx'
 
 class Content extends React.Component {
@@ -18,7 +18,7 @@ class Content extends React.Component {
           <Route exact path="/films" component={FilmsList}/>
           <Route path="/films/:filmID" component={FilmDetail}/>
           <Route exact path="/characters" component={CharactersList}/>
-          <Route path="/characters/:charID" component={CharacterDetail}/>
+          <Route path="/characters/:charID" component={CharacterDetailPage}/>
           <Route exact path="/login" component={CredentialsPage}/>
         </Switch>
       </Container>

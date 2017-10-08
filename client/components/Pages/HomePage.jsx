@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncData from '../Util/AsyncData.jsx'
 
-
-
-
 const NoData = (props) => {
   return (<h1>Log In for extra features!</h1>)
 };

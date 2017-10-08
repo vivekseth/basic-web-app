@@ -2,24 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
 import AsyncFilmItem from '../Util/AsyncFilmItem.jsx'
+import AsyncData from '../Util/AsyncData.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
-const CharacterAttributeTable = function(props) {
-  const _Row = function(props) {
-    return (
-      <Table.Row>
-        <Table.Cell>{props.keyName}</Table.Cell>
-        <Table.Cell>{props.value}</Table.Cell>
-      </Table.Row>
-    );
-  }
+const CharacterAttributeTableRow = (props) => {
+  return (
+    <Table.Row>
+      <Table.Cell>{props.keyName}</Table.Cell>
+      <Table.Cell>{props.value}</Table.Cell>
+    </Table.Row>
+  );
+}
 
+const CharacterAttributeTable = (props) => {
   return (
     <Table basic='very'>
       <Table.Body>
       {
         props.attributes.map((attr, i) => {
-          return <_Row key={attr.key} keyName={attr.key} value={attr.value} />
+          return (
+            <CharacterAttributeTableRow 
+              key={attr.key} 
+              keyName={attr.key} 
+              value={attr.value} 
+            />
+          );
         })
       }
       </Table.Body>
@@ -27,93 +34,54 @@ const CharacterAttributeTable = function(props) {
   );
 }
 
-
-
-class CharacterDetail extends React.Component {
-  
-  constructor() {
-    super()
-    this.state = {
-      isLoading: false,
-      data: null
-    }
-  }
-
-  _charID() {
-    return this.props.match.params.charID
-  }
-
+class CharacterDetailView extends React.Component {
   _attributes() {
     var keys = ["name", "height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender"];
     return keys.map((key, i) => {
       return {
         key: key,
-        value: this.state.data[key]
+        value: this.props.data[key]
       }
     });
   }
 
-  _loadData(url) {
-    this.setState({
-      isLoading: true,
-    })
-
-    superagent
-      .get(url)
-      .end((err, res) => {
-        this.setState({
-          isLoading: false,
-          data: res.body
-        })
-      });
-  }
-
-  componentDidMount() {
-    const apiURL = 'http://localhost:8080/api/people/' + this._charID();
-    this._loadData(apiURL);
-  }
-
   render() {
-    
-    let content = null;
-    if (this.state.isLoading) {
-      content =(<p>loading...</p>);
-    }
-    else if (!this.state.data) {
-      content = (<p>There is no character with that ID</p>); 
-    }
-    else {
-      content = (
-        <div>
-          <Header as='h1'>{this.state.data.name}</Header>
-
-          <Header as='h2'>Attributes</Header>
-          <CharacterAttributeTable attributes={this._attributes()} />
-
-          <Header as='h2'>Films</Header>
-          <List ordered>
-            {
-              this.state.data.films.map((filmURL, i) => {
-                const components = filmURL.split('/');
-                const filmID = components[components.length - 2];
-                return (
-                  <List.Item key={filmID}>
-                    <AsyncFilmItem filmID={filmID}/>
-                  </List.Item>
-                );
-              })
-            }
-          </List>
-        </div>
-      );
-    }
-
     return (
-      content
-    )
-  }
+      <div>
+        <Header as='h1'>{this.props.data.name}</Header>
 
+        <Header as='h2'>Attributes</Header>
+        <CharacterAttributeTable attributes={this._attributes()} />
+
+        <Header as='h2'>Films</Header>
+        <List ordered>
+        {
+          this.props.data.films.map((filmURL, i) => {
+            const components = filmURL.split('/');
+            const filmID = components[components.length - 2];
+            return (
+              <List.Item key={filmID}>
+                <AsyncFilmItem filmID={filmID}/>
+              </List.Item>
+            );
+          })
+        }
+        </List>
+      </div>
+    );
+  }
 }
 
+const CharacterDetailPage = (props) => {
+  const apiURL = 'http://localhost:8080/api/people/' + props.match.params.charID;
+  return (
+    <AsyncData 
+      apiURL={apiURL}
+      IsLoading={(props) => {return (<p>Loading...</p>)}}
+      NoData={(props) => {return (<p>There is no character with that ID</p>)}}
+      HasData={CharacterDetailView}
+    />
+  );
+}
 
-export default CharacterDetail;
+export default CharacterDetailPage;
