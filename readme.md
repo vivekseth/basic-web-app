@@ -10,8 +10,6 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Create Database (Users: (username, password), Favorites: (username, type, contentID))
-
 * Import SWAPI data into local database
 
 * abilty to favorite characters and films
@@ -35,6 +33,8 @@ App is responsible for rendering correct page for a given path and making API re
 * rebuild this app using Django
 
 ## Done
+
+* [DONE] Create Database (Users: (username, password), Favorites: (username, type, contentID))
 
 * [DONE] Refactor async views to re-use common code
 
