@@ -18,7 +18,9 @@
   "scripts": {
     "build": "webpack --display-error-details",
     "server-dev": "./node_modules/.bin/concurrently \"webpack-dev-server\" \"node server/server.js\"",
-    "server-prod": "PRODUCTION=1 yarn build; PRODUCTION=1 PORT=8080 node server/server.js"
+    "server-prod": "PRODUCTION=1 yarn build; PRODUCTION=1 PORT=8080 node server/server.js",
+    "dump-db": "sqlite3 database.db .dump > dump.sql",
+    "init-db": "sqlite3 database.db < init.sql"
   },
   "dependencies": {
     "babel-loader": "^7.1.2",
