@@ -97,7 +97,7 @@ class CharactersListPage extends React.Component {
         <h1>Characters</h1>
         <AsyncData 
           apiURL={this.state.apiURL}
-          IsLoading={(props) => {return (<elemental.Spinner size="md" />)}}
+          IsLoading={(props) => {return (<p>Loading...</p>)}}
           NoData={(props) => {return (<p>There are no characters</p>)}}
           HasData={(props) => {
             return (

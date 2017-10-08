@@ -4,7 +4,7 @@ import superagent from 'superagent'
 import AsyncData from '../Util/AsyncData.jsx'
 
 const NoData = (props) => {
-  return (<h1>Log In for extra features!</h1>)
+  return (<h1>Log in for extra features!</h1>)
 };
 
 const HomePage = (props) => {

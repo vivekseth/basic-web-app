@@ -10,8 +10,6 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* Refactor async views to re-use common code. (3/7 complete)
-
 * Create Database (Users: (username, password), Favorites: (username, type, contentID))
 
 * Import SWAPI data into local database
@@ -37,6 +35,8 @@ App is responsible for rendering correct page for a given path and making API re
 * rebuild this app using Django
 
 ## Done
+
+* [DONE] Refactor async views to re-use common code
 
 * [DONE] (it doesnt) How does react-router work with authentication? If a user is logged in, a path may look different. 
 
