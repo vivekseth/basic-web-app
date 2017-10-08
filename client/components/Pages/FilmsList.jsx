@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import superagent from 'superagent'
+import AsyncData from '../Util/AsyncData.jsx'
 
-const _FilmItem = (props) => {
+const FilmItem = (props) => {
   const film = props.film;
   const components = film.url.split('/');
   const filmID = components[components.length - 2];
@@ -15,62 +16,33 @@ const _FilmItem = (props) => {
   )
 }
 
-class FilmsList extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      isLoading: false,
-      films: []
-    }
-  }
-
-  componentDidMount() {
-    this.setState({
-      isLoading: true,
-    })
-
-    superagent
-      .get('http://localhost:8080/api/films/')
-      .end((err, res) => {
-        this.setState({
-          isLoading: false,
-          films: res.body.results
-        })
-      });
-  }
-
-  render() {
-    
-    let content = null;
-    if (this.state.isLoading) {
-      content =(<p>loading...</p>);
-    }
-    else if (this.state.films.length == 0) {
-      content = (<p>There are no films</p>); 
-    }
-    else {
-      content = (
-        <ol>
-          {this.state.films.map((film, i) => {
-            return (
-              <_FilmItem 
-                key={film.episode_id.toString()} 
-                film={film}
-              />
-            )
-          })}
-        </ol>
-      )
-    }
-
-    return (
-      <div>
-        <h1>Films</h1>
-        {content}
-      </div>
-    )
-  }
+const FilmsListView = (props) => {
+  return (
+    <ol>
+      {props.data.results.map((film, i) => {
+        return (
+          <FilmItem 
+            key={film.episode_id.toString()} 
+            film={film}
+          />
+        )
+      })}
+    </ol>
+  );
 }
 
+const FilmsListPage = (props) => {
+  return (
+    <div>
+      <h1>Films</h1>
+      <AsyncData 
+        apiURL={'http://localhost:8080/api/films/'}
+        IsLoading={(props) => {return (<p>Loading...</p>)}}
+        NoData={(props) => {return (<p>There are no films</p>)}}
+        HasData={FilmsListView}
+      />
+    </div>
+  );
+}
 
-export default FilmsList;
+export default FilmsListPage;
