@@ -141,6 +141,113 @@ app.get('/api/user/favorites', function(req, res) {
   }
 })
 
+
+// TODO(vivek): refactor the API handlers to re-use common code. 
+app.get('/api/films', function(req, res) {
+  db.all('select * from films order by film_id;', function(err, rows){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: rows,
+      });
+    }
+  });
+})
+
+app.get('/api/films/:film_id', function(req, res) {
+  db.all('select * from films where film_id = ? LIMIT 1;', req.params.film_id, function(err, row){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: row,
+      });
+    }
+  });
+})
+
+app.get('/api/characters', function(req, res) {
+  db.all('select * from characters order by character_id;', function(err, rows){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: rows,
+      });
+    }
+  });
+})
+
+app.get('/api/characters/:character_id', function(req, res) {
+  db.all('select * from characters where character_id = ? LIMIT 1;', req.params.character_id, function(err, row){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: row,
+      });
+    }
+  });
+})
+
+
+app.get('/api/pages/films_list', function(req, res) {
+  /*
+  film_id
+  episode_id
+  title
+  */
+  db.all('select film_id, episode_id, title from films order by film_id;', function(err, rows){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: rows,
+      });
+    }
+  });
+
+});
+
+
+
+
+
+
+
+
+
 app.get('/api/*', function(req, res) {
   const apiURL = 'https://swapi.co' + req.url;
 
