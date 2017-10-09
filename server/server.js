@@ -217,11 +217,6 @@ app.get('/api/characters/:character_id', function(req, res) {
 
 
 app.get('/api/pages/films_list', function(req, res) {
-  /*
-  film_id
-  episode_id
-  title
-  */
   db.all('select film_id, episode_id, title from films order by film_id;', function(err, rows){
     if (err) {
       console.log(err);
@@ -237,13 +232,60 @@ app.get('/api/pages/films_list', function(req, res) {
       });
     }
   });
-
 });
 
+app.get('/api/pages/characters_list', function(req, res) {
+  db.all('select character_id, name from characters order by character_id;', function(err, rows){
+    if (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+      });
+    }
+    else {
+      res.json({
+        success: true,
+        data: rows,
+      });
+    }
+  });
+});
 
+app.get('/api/pages/films_detail/:film_id', function(req, res) {
+  function handleError(error) {
+    console.log(error);
+    res.json({
+      success: false,
+      data: null,
+      error: error
+    });
+  }
 
+  function handleSuccess(data) {
+    res.json({
+      success: true,
+      data: data,
+    });
+  }
 
-
+  const sql = 'select characters.character_id, name from characters inner join film_characters on characters.character_id = film_characters.character_id where film_characters.film_id = ? order by characters.character_id;'
+  db.all(sql, req.params.film_id, function(err, rows){
+    if (err) {
+      return handleError(err)
+    }
+    const characters = rows;
+    db.get('select title, director, producer, release_date, opening_crawl from films where film_id = ?;', req.params.film_id, function(err, row){
+      if (err) {
+        return handleError(err)
+      }
+      
+      const filmDetails = row;
+      filmDetails['characters'] = characters;
+      return handleSuccess(filmDetails);
+    });
+  });
+});
 
 
 
