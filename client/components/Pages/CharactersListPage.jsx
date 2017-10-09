@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import superagent from 'superagent'
 import elemental from 'elemental'
 import AsyncData from '../Util/AsyncData.jsx'
 

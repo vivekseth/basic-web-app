@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import superagent from 'superagent'
-import AsyncFilmItem from '../Util/AsyncFilmItem.jsx'
 import AsyncData from '../Util/AsyncData.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
