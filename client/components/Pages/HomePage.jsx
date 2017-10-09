@@ -8,7 +8,7 @@ const NoData = (props) => {
 
 const HomePage = (props) => {
   return <AsyncData
-    apiURL='http://localhost:8080/api/user/'
+    apiURL='/api/user/'
     IsLoading={(props) => {return (<h1>Loading...</h1>)}}
     NoData={NoData}
     HasData={(props) => {
