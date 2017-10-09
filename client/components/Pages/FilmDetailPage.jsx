@@ -6,7 +6,7 @@ import AsyncData from '../Util/AsyncData.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
 const FilmDetailView = (props) => {
-  const film = props.data;
+  const film = props.data.data;
   return (
     <div>
 
@@ -49,12 +49,12 @@ const FilmDetailView = (props) => {
 
       <List bulleted>
       {
-        film.characters.map((url, i) => {
-          const components = url.split('/');
-          const characterID = components[components.length - 2];
+        film.characters.map((char, i) => {
           return (
-            <List.Item key={characterID}>
-              <AsyncCharacterItem characterID={characterID} />
+            <List.Item key={char.character_id}>
+              <Link to={'/characters/' + char.character_id}>
+                {char.name}
+              </Link>
             </List.Item>
           );
         })
@@ -65,7 +65,7 @@ const FilmDetailView = (props) => {
 }
 
 const FilmDetailPage = (props) => {
-  const apiURL = 'http://localhost:8080/api/films/' + props.match.params.filmID;
+  const apiURL = '/api/pages/films_detail/' + props.match.params.filmID;
   return (
     <AsyncData 
       apiURL={apiURL}
