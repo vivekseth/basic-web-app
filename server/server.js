@@ -252,7 +252,7 @@ app.get('/api/pages/characters_list', function(req, res) {
   });
 });
 
-app.get('/api/pages/films_detail/:film_id', function(req, res) {
+app.get('/api/pages/film_detail/:film_id', function(req, res) {
   function handleError(error) {
     console.log(error);
     res.json({
@@ -283,6 +283,43 @@ app.get('/api/pages/films_detail/:film_id', function(req, res) {
       const filmDetails = row;
       filmDetails['characters'] = characters;
       return handleSuccess(filmDetails);
+    });
+  });
+});
+
+
+app.get('/api/pages/character_detail/:character_id', function(req, res) {
+  function handleError(error) {
+    console.log(error);
+    res.json({
+      success: false,
+      data: null,
+      error: error
+    });
+  }
+
+  function handleSuccess(data) {
+    res.json({
+      success: true,
+      data: data,
+    });
+  }
+
+  const sql = 'select films.film_id, title from films inner join film_characters on films.film_id = film_characters.film_id where film_characters.character_id = ? order by films.film_id;'
+  db.all(sql, req.params.character_id, function(err, rows){
+    if (err) {
+      return handleError(err)
+    }
+    const films = rows;
+    
+    db.get('select * from characters where character_id = ?;', req.params.character_id, function(err, row){
+      if (err) {
+        return handleError(err)
+      }
+      
+      const characterDetails = row;
+      characterDetails['films'] = films;
+      return handleSuccess(characterDetails);
     });
   });
 });

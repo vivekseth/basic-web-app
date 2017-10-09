@@ -36,19 +36,21 @@ const CharacterAttributeTable = (props) => {
 
 class CharacterDetailView extends React.Component {
   _attributes() {
+    const characterDetail = this.props.data.data;
     var keys = ["name", "height", "mass", "hair_color", "skin_color", "eye_color", "birth_year", "gender"];
     return keys.map((key, i) => {
       return {
         key: key,
-        value: this.props.data[key]
+        value: characterDetail[key]
       }
     });
   }
 
   render() {
+    const characterDetail = this.props.data.data;
     return (
       <div>
-        <Header as='h1'>{this.props.data.name}</Header>
+        <Header as='h1'>{characterDetail.name}</Header>
 
         <Header as='h2'>Attributes</Header>
         <CharacterAttributeTable attributes={this._attributes()} />
@@ -56,12 +58,12 @@ class CharacterDetailView extends React.Component {
         <Header as='h2'>Films</Header>
         <List ordered>
         {
-          this.props.data.films.map((filmURL, i) => {
-            const components = filmURL.split('/');
-            const filmID = components[components.length - 2];
+          characterDetail.films.map((film, i) => {
             return (
-              <List.Item key={filmID}>
-                <AsyncFilmItem filmID={filmID}/>
+              <List.Item key={film.film_id}>
+                <Link to={'/films/' + film.film_id}>
+                  {film.title}
+                </Link>
               </List.Item>
             );
           })
@@ -73,7 +75,7 @@ class CharacterDetailView extends React.Component {
 }
 
 const CharacterDetailPage = (props) => {
-  const apiURL = 'http://localhost:8080/api/people/' + props.match.params.charID;
+  const apiURL = '/api/pages/character_detail/' + props.match.params.charID;
   return (
     <AsyncData 
       apiURL={apiURL}

@@ -64,7 +64,7 @@ const FilmDetailView = (props) => {
 }
 
 const FilmDetailPage = (props) => {
-  const apiURL = '/api/pages/films_detail/' + props.match.params.filmID;
+  const apiURL = '/api/pages/film_detail/' + props.match.params.filmID;
   return (
     <AsyncData 
       apiURL={apiURL}
