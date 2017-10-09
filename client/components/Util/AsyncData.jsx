@@ -1,6 +1,8 @@
 import React from 'react';
 import superagent from 'superagent'
 
+// TODO(vivek): add a case for error retrieving data. 
+
 class AsyncData extends React.Component {
   constructor() {
     super()
