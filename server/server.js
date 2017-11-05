@@ -142,224 +142,107 @@ app.get('/api/user/favorites', function(req, res) {
 })
 
 
+function _apiHandler(err, data, req, res) {
+  if (err) {
+    console.log(err);
+    res.json({
+      success: false,
+      data: null,
+      error: err
+    });
+  }
+  else {
+    res.json({
+      success: true,
+      data: data,
+    });
+  }
+}
+
 // TODO(vivek): refactor the API handlers to re-use common code. 
 app.get('/api/films', function(req, res) {
   db.all('select * from films order by film_id;', function(err, rows){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: rows,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 })
 
 app.get('/api/films/:film_id', function(req, res) {
   db.all('select * from films where film_id = ? LIMIT 1;', req.params.film_id, function(err, row){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: row,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 })
 
 app.get('/api/characters', function(req, res) {
   db.all('select * from characters order by character_id;', function(err, rows){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: rows,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 })
 
 app.get('/api/characters/:character_id', function(req, res) {
   db.all('select * from characters where character_id = ? LIMIT 1;', req.params.character_id, function(err, row){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: row,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 })
 
-
 app.get('/api/pages/films_list', function(req, res) {
   db.all('select film_id, episode_id, title from films order by film_id;', function(err, rows){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: rows,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 });
 
 app.get('/api/pages/characters_list', function(req, res) {
   db.all('select character_id, name from characters order by character_id;', function(err, rows){
-    if (err) {
-      console.log(err);
-      res.json({
-        success: false,
-        data: null,
-      });
-    }
-    else {
-      res.json({
-        success: true,
-        data: rows,
-      });
-    }
+    _apiHandler(err, rows, req, res);
   });
 });
 
 app.get('/api/pages/film_detail/:film_id', function(req, res) {
-  function handleError(error) {
-    console.log(error);
-    res.json({
-      success: false,
-      data: null,
-      error: error
-    });
-  }
-
-  function handleSuccess(data) {
-    res.json({
-      success: true,
-      data: data,
-    });
-  }
-
   const sql = 'select characters.character_id, name from characters inner join film_characters on characters.character_id = film_characters.character_id where film_characters.film_id = ? order by characters.character_id;'
   db.all(sql, req.params.film_id, function(err, rows){
     if (err) {
-      return handleError(err)
+      _apiHandler(err, null, req, res);
     }
-    const characters = rows;
-    db.get('select title, director, producer, release_date, opening_crawl from films where film_id = ?;', req.params.film_id, function(err, row){
-      if (err) {
-        return handleError(err)
-      }
-      
-      const filmDetails = row;
-      filmDetails['characters'] = characters;
-      return handleSuccess(filmDetails);
-    });
+    else {
+      const characters = rows;
+      db.get('select title, director, producer, release_date, opening_crawl from films where film_id = ?;', req.params.film_id, function(err, row){      
+        var filmDetails = row;
+        if (filmDetails) {
+          filmDetails['characters'] = characters;
+        }
+        _apiHandler(err, filmDetails, req, res);
+      });
+    }
   });
 });
 
-
 app.get('/api/pages/character_detail/:character_id', function(req, res) {
-  function handleError(error) {
-    console.log(error);
-    res.json({
-      success: false,
-      data: null,
-      error: error
-    });
-  }
-
-  function handleSuccess(data) {
-    res.json({
-      success: true,
-      data: data,
-    });
-  }
-
   const sql = 'select films.film_id, title from films inner join film_characters on films.film_id = film_characters.film_id where film_characters.character_id = ? order by films.film_id;'
   db.all(sql, req.params.character_id, function(err, rows){
     if (err) {
-      return handleError(err)
+      _apiHandler(err, rows, req, res);
     }
-    const films = rows;
-    
-    db.get('select * from characters where character_id = ?;', req.params.character_id, function(err, row){
-      if (err) {
-        return handleError(err)
-      }
-      
-      const characterDetails = row;
-      characterDetails['films'] = films;
-      return handleSuccess(characterDetails);
-    });
+    else {
+      const films = rows;
+      db.get('select * from characters where character_id = ?;', req.params.character_id, function(err, row){        
+        const characterDetails = row;
+        if (characterDetails) {
+          characterDetails['films'] = films;
+        }
+        _apiHandler(err, characterDetails, req, res);
+      });
+    }
   });
 });
 
 
 
-
-app.get('/api/*', function(req, res) {
-  const apiURL = 'https://swapi.co' + req.url;
-
-  if (MEM_CACHE[apiURL]) {
-    // console.log('✅ Cache Hit: ' + apiURL)
-    res.json(MEM_CACHE[apiURL]);
-  }
-  else {
-    request(apiURL, function (error, response, body) {
-      if (error) {
-        console.log('😖 Error: ' + apiURL)
-        res.json({error: error});
-      }
-      else {
-        console.log('❌ Cache Miss: ' + apiURL)
-        var data = JSON.parse(body);
-        MEM_CACHE[apiURL] = data;
-        CACHE_DIRTY = true;
-        res.json(data);
-      }
-    });
-  }
-})
-
-const loginPath = PRODUCTION ? '/login' : '/#/login'
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: loginPath }));
+app.post('/login', function(req, res) {
+  const loginPath = PRODUCTION ? '/login' : '/#/login'
+  const data = { successRedirect: '/', failureRedirect: loginPath };
+  passport.authenticate('local', data)(req, res);
+});
 
 app.post('/register', function(req, res) {
-  console.log('REGISTER');
-  console.log(req.body);
-
   _registerUser(req.body.username, req.body.password, function(success){
     if (success) {
       res.send('registration successful!');
