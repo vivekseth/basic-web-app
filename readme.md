@@ -10,8 +10,6 @@ App is responsible for rendering correct page for a given path and making API re
 
 ## TODO
 
-* abilty to favorite characters and films
-
 * Add search, sort, filtering
 
 * Show error messages from server without page reload (invalid username, password, user already exists, etc)
@@ -31,6 +29,8 @@ App is responsible for rendering correct page for a given path and making API re
 * rebuild this app using Django
 
 ## Done
+
+* [DONE] abilty to favorite characters and films
 
 * [DONE] Import SWAPI data into local database
 
