@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import AsyncData from '../Util/AsyncData.jsx'
+import Privileged from '../Util/Privileged.jsx'
 import FilmsListView from '../Util/FilmsListView.jsx'
 import CharactersListView from '../Util/CharactersListView.jsx'
 
@@ -24,22 +25,10 @@ const Favorites = (props) => {
   );
 }
 
-const HomePage = (props) => {
+const PrivilegedPage = (props) => {
   return (
     <div>
-      <AsyncData
-        apiURL='/api/user/'
-        IsLoading={(props) => {return (<h1>Loading...</h1>)}}
-        NoData={NoData}
-        HasData={(props) => {
-          if (props.data.success) {
-            return (<h1>Hello {props.data.data.username} !</h1>)
-          }
-          else {
-            return NoData(props);
-          }
-        }}
-      />
+      <h1>Hello {props.userData.username} !</h1>
       <AsyncData
         apiURL='/api/user/favorites'
         IsLoading={(props) => {return (<pre>Loading...</pre>)}}
@@ -54,7 +43,18 @@ const HomePage = (props) => {
         }}
       />
     </div>
+  );
+}
 
+const HomePage = (props) => {
+  return (
+    <div>
+      <Privileged 
+        Success={PrivilegedPage}
+        Fail={NoData} 
+        Loading={(props)=>{return <h1>Loading...</h1>}}
+      />
+    </div>
   );
 }
 

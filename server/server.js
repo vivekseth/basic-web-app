@@ -194,6 +194,76 @@ app.get('/api/user/favorites', function(req, res) {
   });
 })
 
+app.all('/api/user/favorites/:type/:identifer', function(req, res) {
+  if (!req.user) {
+    return _apiHandler(true, null, req, res);
+  }
+
+  const typeMap = {
+    films: 'film',
+    characters: 'character',
+  };
+
+  const getFavoriteSQL = `
+    select 
+      * 
+    from 
+      favorites 
+    where 
+      username = ? 
+      and type = ? 
+      and id = ?
+    ;
+  `;
+  
+  const deleteFavoriteSQL = `
+    delete from 
+      favorites 
+    where 
+      username = ? 
+      and type = ? 
+      and id = ?
+    ;
+  `;
+  
+  const setFavoriteSQL = `
+    INSERT OR IGNORE INTO 
+      favorites (username, type, id) 
+    VALUES 
+      ?, ?, ? 
+    ;
+  `;
+
+  const username = res.user.username;
+  const type = typeMap[req.params.type];
+  const id = req.params.identifer;
+
+  console.log(req.method, username, type, id);
+
+  if (req.method === 'GET') {
+    db.get(getFavoriteSQL, username, type, id, function(err, row) {
+      _apiHandler(err, row, req, res);
+    });
+  }
+  else if (req.method === 'PUT') {
+    db.run(setFavoriteSQL, username, type, id, function(err) {
+      const success = err ? false : true;
+      _apiHandler(err, success, req, res);
+    });
+  }
+  else if (req.method === 'DELETE') {
+    db.run(deleteFavoriteSQL, username, type, id, function(err) {
+      const success = err ? false : true;
+      _apiHandler(err, success, req, res);
+    });
+  }
+  else {
+    _apiHandler(true, null, req, res);
+  }
+});
+
+
+
 app.get('/api/films', function(req, res) {
   db.all('select * from films order by film_id;', function(err, rows){
     _apiHandler(err, rows, req, res);

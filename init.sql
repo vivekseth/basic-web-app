@@ -9,8 +9,15 @@ INSERT INTO "users" VALUES('john','$2a$10$WYSw6pKiAJd.knvxinrxAeFgiZOweieRoTraWv
 CREATE TABLE favorites (
    username TEXT NOT NULL,
    type TEXT NOT NULL,
-   id TEXT NOT NULL
+   id TEXT NOT NULL,
+   UNIQUE(username, type, id)
 );
+INSERT INTO "favorites" VALUES('john','film','1');
+INSERT INTO "favorites" VALUES('john','character','1');
+INSERT INTO "favorites" VALUES('john','character','2');
+INSERT INTO "favorites" VALUES('john','character','3');
+INSERT INTO "favorites" VALUES('john','film','3');
+INSERT INTO "favorites" VALUES('john','film','2');
 CREATE TABLE films (
   film_id INT PRIMARY KEY,
   title TEXT NOT NULL,
