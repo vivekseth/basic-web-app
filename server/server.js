@@ -107,9 +107,22 @@ app.use(passport.session());
 
 // API Methods
 
-// app.get('/api/hello', function(req, res) {
-//     res.json({hello: "world"});
-// });
+function _apiHandler(err, data, req, res) {
+  if (err) {
+    console.log('api error:', err);
+    res.json({
+      success: false,
+      data: null,
+      error: err
+    });
+  }
+  else {
+    res.json({
+      success: true,
+      data: data,
+    });
+  }
+}
 
 app.get('/api/user', function(req, res) {
   if (req.user) {
@@ -126,40 +139,61 @@ app.get('/api/user', function(req, res) {
   }
 });
 
-app.get('/api/user/favorites', function(req, res) {
-  if (req.user) {
-    res.json({
-      success: true,
-      data: [],
-    });
+app.get('/api/user/favorites', function(req, res) {  
+  const charactersSQL = 
+    `select 
+      characters.character_id, 
+      characters.name
+    from 
+      favorites
+    inner join
+      characters
+    on
+      characters.character_id = favorites.id
+    where 
+      favorites.type = 'character'
+      and favorites.username = ?
+    order by
+      characters.character_id;`
+
+ const filmsSQL = `
+    select 
+      films.film_id, 
+      films.episode_id, 
+      films.title
+    from 
+      favorites
+    inner join
+      films
+    on
+      films.film_id = favorites.id
+    where 
+      favorites.type = 'film'
+      and favorites.username = ?
+    order by
+      films.film_id;`
+
+  if (!req.user) {
+    return _apiHandler(true, null, req, res);
   }
-  else {
-    res.json({
-      success: false,
-      data: null,
+
+  db.all(charactersSQL, req.user.username, function(errCharacters, characters) {
+    if (errCharacters) {
+      return _apiHandler(errCharacters, null, req, res);
+    }
+    db.all(filmsSQL, req.user.username, function(errFilms, films) {
+      if (errFilms) {
+        return _apiHandler(errFilms, null, req, res);
+      }
+      const data = {
+        characters: characters,
+        films: films
+      }
+      _apiHandler(null, data, req, res);
     });
-  }
+  });
 })
 
-
-function _apiHandler(err, data, req, res) {
-  if (err) {
-    console.log(err);
-    res.json({
-      success: false,
-      data: null,
-      error: err
-    });
-  }
-  else {
-    res.json({
-      success: true,
-      data: data,
-    });
-  }
-}
-
-// TODO(vivek): refactor the API handlers to re-use common code. 
 app.get('/api/films', function(req, res) {
   db.all('select * from films order by film_id;', function(err, rows){
     _apiHandler(err, rows, req, res);

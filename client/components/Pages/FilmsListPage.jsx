@@ -1,33 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import AsyncData from '../Util/AsyncData.jsx'
-
-const FilmItem = (props) => {
-  return (
-    <li>
-      <Link to={"/films/" + props.filmID}>
-        {props.title}
-      </Link>
-    </li>
-  )
-}
-
-const FilmsListView = (props) => {
-  const films = props.data.data;
-  return (
-    <ol>
-      {films.map((film, i) => {
-        return (
-          <FilmItem 
-            key={film.episode_id} 
-            filmID={film.film_id}
-            title={film.title}
-          />
-        )
-      })}
-    </ol>
-  );
-}
+import FilmsListView from '../Util/FilmsListView.jsx'
 
 const FilmsListPage = (props) => {
   return (
@@ -37,7 +11,9 @@ const FilmsListPage = (props) => {
         apiURL={'/api/pages/films_list'}
         IsLoading={(props) => {return (<p>Loading...</p>)}}
         NoData={(props) => {return (<p>There are no films</p>)}}
-        HasData={FilmsListView}
+        HasData={(props) => {
+          return <FilmsListView films={props.data.data}/>
+        }}
       />
     </div>
   );
