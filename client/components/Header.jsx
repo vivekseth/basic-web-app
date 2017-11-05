@@ -27,7 +27,7 @@ const _PrivilegedHeader = (props) => {
 }
 
 const Header = (props) => {
-  return <Privileged 
+  return <Privileged
     Success={_PrivilegedHeader}
     Fail={_PrivilegedHeader}
     Loading={_PrivilegedHeader}

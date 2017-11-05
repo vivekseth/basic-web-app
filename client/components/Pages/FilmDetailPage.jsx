@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import AsyncData from '../Util/AsyncData.jsx'
+import Privileged from '../Util/Privileged.jsx'
+import FavoriteButton from '../Util/FavoriteButton.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
 const FilmDetailView = (props) => {
   const film = props.data.data;
   return (
     <div>
+
+      <FavoriteButton type='films' fav_id={film.film_id} style={{
+        clear: 'none',
+        float: 'left'
+      }}/>
 
       <Header as='h1'>
         {film.title}

@@ -229,12 +229,11 @@ app.all('/api/user/favorites/:type/:identifer', function(req, res) {
   const setFavoriteSQL = `
     INSERT OR IGNORE INTO 
       favorites (username, type, id) 
-    VALUES 
-      ?, ?, ? 
+    VALUES (?, ?, ?)
     ;
   `;
 
-  const username = res.user.username;
+  const username = req.user.username;
   const type = typeMap[req.params.type];
   const id = req.params.identifer;
 
@@ -308,7 +307,7 @@ app.get('/api/pages/film_detail/:film_id', function(req, res) {
     }
     else {
       const characters = rows;
-      db.get('select title, director, producer, release_date, opening_crawl from films where film_id = ?;', req.params.film_id, function(err, row){      
+      db.get('select title, director, producer, release_date, opening_crawl, film_id from films where film_id = ?;', req.params.film_id, function(err, row){      
         var filmDetails = row;
         if (filmDetails) {
           filmDetails['characters'] = characters;

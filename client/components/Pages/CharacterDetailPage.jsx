@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import AsyncData from '../Util/AsyncData.jsx'
+import FavoriteButton from '../Util/FavoriteButton.jsx'
 import { Header, Table, List } from 'semantic-ui-react'
 
 const CharacterAttributeTableRow = (props) => {
@@ -48,6 +49,12 @@ class CharacterDetailView extends React.Component {
     const characterDetail = this.props.data.data;
     return (
       <div>
+
+        <FavoriteButton type='characters' fav_id={characterDetail.character_id} style={{
+          clear: 'none',
+          float: 'left'
+        }}/>
+
         <Header as='h1'>{characterDetail.name}</Header>
 
         <Header as='h2'>Attributes</Header>
